@@ -1,0 +1,442 @@
+Here is your complete, fully assembled website file with all your personal touches: the three uploaded photos mapped to their exact captions, the embedded YouTube player for Pehli Dafa, the anniversary counter from 12 October 2024, and the hidden surprise: "Chole bhature at delhi wale ❤️".
+Easy Setup Steps
+ * Put your 3 photos in the same folder where you save this file and rename them:
+   * Rename the festival/lawn photo (image.png) \rightarrow met.jpg
+   * Rename the cozy lights cafe photo (image_3.png) \rightarrow cafe.jpg
+   * Rename the mirror selfie photo (image_2.png) \rightarrow pose.jpg
+ * Copy the code below, paste it into Notepad / TextEdit, and save it as index.html in that same folder.
+ * Drag the folder or files right onto app.netlify.com/drop or tiiny.host to get a private link to send her.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday, My Love ♡</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-cream: #FAF6F0;
+      --soft-blush: #FCECEE;
+      --rose-gold: #B76E79;
+      --rose-dark: #8C4751;
+      --candle-gold: #E6C594;
+      --text-main: #332427;
+      --text-muted: #7E6B70;
+      --card-bg: rgba(255, 255, 255, 0.92);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+      line-height: 1.6;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(252, 236, 238, 0.85) 0%, transparent 45%),
+        radial-gradient(circle at 90% 80%, rgba(230, 197, 148, 0.35) 0%, transparent 45%);
+      padding-bottom: 70px;
+    }
+
+    /* Embedded YouTube Floating Player */
+    .music-player {
+      position: fixed;
+      top: 18px;
+      right: 18px;
+      z-index: 100;
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      padding: 8px 16px;
+      border-radius: 50px;
+      border: 1px solid rgba(183, 110, 121, 0.35);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 24px rgba(183, 110, 121, 0.18);
+    }
+
+    .music-player button {
+      background: var(--rose-gold);
+      color: white;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease;
+    }
+
+    .music-player button:hover { transform: scale(1.05); }
+
+    .song-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 70px 20px 20px;
+      text-align: center;
+    }
+
+    h1, h2 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 600;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 30px 0 10px;
+    }
+
+    .hero-subtitle {
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 0.8rem;
+      color: var(--rose-gold);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .hero-title {
+      font-size: 3.2rem;
+      line-height: 1.15;
+      color: var(--text-main);
+      margin-bottom: 16px;
+    }
+
+    .hero-title span {
+      color: var(--rose-gold);
+      font-style: italic;
+    }
+
+    .hero-desc {
+      color: var(--text-muted);
+      max-width: 500px;
+      font-size: 1.05rem;
+      margin: 0 auto 25px;
+    }
+
+    /* Counter */
+    .counter-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin: 35px 0 50px;
+    }
+
+    .counter-card {
+      background: var(--card-bg);
+      padding: 22px 10px;
+      border-radius: 18px;
+      border: 1px solid rgba(183, 110, 121, 0.2);
+      box-shadow: 0 8px 24px rgba(183, 110, 121, 0.08);
+    }
+
+    .counter-number {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 2.5rem;
+      font-weight: 600;
+      color: var(--rose-dark);
+      line-height: 1;
+    }
+
+    .counter-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Photo Scrapbook */
+    .gallery-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 24px;
+      margin: 25px 0 60px;
+    }
+
+    .polaroid {
+      background: white;
+      padding: 12px 12px 24px 12px;
+      border-radius: 4px;
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.09);
+      width: 230px;
+      transition: transform 0.3s ease;
+    }
+
+    .polaroid:hover {
+      transform: scale(1.05) rotate(0deg) !important;
+      z-index: 10;
+    }
+
+    .polaroid img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 2px;
+    }
+
+    .polaroid p {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-style: italic;
+      margin-top: 12px;
+      font-size: 1.15rem;
+      color: var(--text-main);
+    }
+
+    /* Generator */
+    .generator-section {
+      margin: 50px 0;
+      background: var(--card-bg);
+      border-radius: 22px;
+      padding: 35px 22px;
+      border: 1px solid rgba(183, 110, 121, 0.25);
+      box-shadow: 0 12px 35px rgba(183, 110, 121, 0.09);
+    }
+
+    .quote-box {
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.35rem;
+      color: var(--rose-dark);
+      margin: 18px 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .btn-magic {
+      background: linear-gradient(135deg, var(--candle-gold) 0%, var(--rose-gold) 100%);
+      color: white;
+      border: none;
+      padding: 12px 28px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(183, 110, 121, 0.25);
+      transition: transform 0.2s ease;
+    }
+
+    .btn-magic:active { transform: scale(0.98); }
+
+    /* Scratch Card */
+    .scratch-wrapper {
+      position: relative;
+      width: 320px;
+      height: 160px;
+      margin: 25px auto;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+      user-select: none;
+    }
+
+    .scratch-secret {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: var(--soft-blush);
+      border: 2px dashed var(--rose-gold);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 12px;
+    }
+
+    .scratch-canvas {
+      position: absolute;
+      top: 0; left: 0;
+      cursor: pointer;
+    }
+
+    footer {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-top: 55px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating YouTube Embedded Player -->
+  <div class="music-player">
+    <button id="songBtn" onclick="toggleYTSong()">▶</button>
+    <div style="text-align: left;">
+      <div class="song-title">Pehli Dafa ♡</div>
+      <div style="font-size: 10px; color: var(--text-muted);">Atif Aslam</div>
+    </div>
+  </div>
+
+  <!-- Hidden Background YouTube API Frame -->
+  <iframe id="ytPlayer" width="1" height="1" 
+    src="https://www.youtube-nocookie.com/embed/SxTYjptEzZs?enablejsapi=1&playsinline=1" 
+    frameborder="0" allow="autoplay" style="position: absolute; opacity: 0; pointer-events: none;">
+  </iframe>
+
+  <div class="container">
+    <section class="hero">
+      <div class="hero-subtitle">October 12, 2024 • Where It All Began</div>
+      <h1 class="hero-title">Happy Birthday, <span>My Love</span> ♡</h1>
+      <p class="hero-desc">Every single moment since that first day has been my favorite memory. Today is all about celebrating you.</p>
+    </section>
+
+    <!-- Milestone Counter (Calculated automatically from Oct 12, 2024) -->
+    <div class="counter-grid">
+      <div class="counter-card">
+        <div class="counter-number" id="daysCount">--</div>
+        <div class="counter-label">Days Since We Met</div>
+      </div>
+      <div class="counter-card">
+        <div class="counter-number">10,000+</div>
+        <div class="counter-label">Laughs Shared</div>
+      </div>
+      <div class="counter-card">
+        <div class="counter-number">∞</div>
+        <div class="counter-label">Memories Ahead</div>
+      </div>
+    </div>
+
+    <!-- The 3 Photos & Captions -->
+    <section>
+      <h2 style="font-size: 2.1rem;">Moments I Cherish</h2>
+      <p style="color: var(--text-muted); font-size: 0.92rem; margin-top: 4px;">A few of our unforgettable chapters together</p>
+      
+      <div class="gallery-grid">
+        <div class="polaroid" style="transform: rotate(-3deg);">
+          <img src="met.jpg" alt="The place we met">
+          <p>The place we met ♡</p>
+        </div>
+        <div class="polaroid" style="transform: rotate(2deg);">
+          <img src="cafe.jpg" alt="Our go to Cafe">
+          <p>Our go-to café ☕</p>
+        </div>
+        <div class="polaroid" style="transform: rotate(-2deg);">
+          <img src="pose.jpg" alt="Go to pose">
+          <p>Our go-to pose ✨</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dynamic AI Reason Generator -->
+    <section class="generator-section">
+      <div style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.72rem; color: var(--rose-gold); font-weight: bold;">Daily Affirmation Engine</div>
+      <div class="quote-box" id="quoteBox">"Click below whenever you need a reminder of how special you are..."</div>
+      <button class="btn-magic" onclick="nextNote()">Tell Me Why You Love Me ✨</button>
+    </section>
+
+    <!-- Scratch-Off Surprise Card -->
+    <section style="margin: 45px 0;">
+      <h2 style="font-size: 2.1rem;">Your Birthday Treat</h2>
+      <p style="color: var(--text-muted); font-size: 0.92rem; margin-top: 4px;">Scratch with your finger or mouse to unlock your surprise</p>
+
+      <div class="scratch-wrapper">
+        <div class="scratch-secret">
+          <span style="font-size: 10px; color: var(--rose-gold); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">Official Birthday Voucher</span>
+          <span style="font-size: 1.3rem; font-weight: bold; font-family:'Cormorant Garamond', Georgia, serif; color: var(--text-main); margin-top: 6px;">
+            Chole bhature at delhi wale ❤️
+          </span>
+          <span style="font-size: 10px; color: var(--text-muted); margin-top: 6px;">Extra bhature on me • Redeemable anytime</span>
+        </div>
+        <canvas id="scratchCanvas" class="scratch-canvas" width="320" height="160"></canvas>
+      </div>
+    </section>
+
+    <footer>
+      Forever grateful for 12 October 2024 ♡
+    </footer>
+  </div>
+
+  <script>
+    // YouTube Background Song Toggle
+    let isPlaying = false;
+    function toggleYTSong() {
+      const iframe = document.getElementById('ytPlayer');
+      const btn = document.getElementById('songBtn');
+      
+      if (!isPlaying) {
+        iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        btn.innerText = '❚❚';
+        isPlaying = true;
+      } else {
+        iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+        btn.innerText = '▶';
+        isPlaying = false;
+      }
+    }
+
+    // Days Counter: 12 October 2024
+    const firstDate = new Date(2024, 9, 12);
+    const currentDate = new Date();
+    const elapsedDays = Math.floor((currentDate - firstDate) / (1000 * 60 * 60 * 24));
+    document.getElementById('daysCount').innerText = elapsedDays;
+
+    // Compliment Generator
+    const notes = [
+      "The exact moment on October 12 when I knew you were going to be special to me.",
+      "The sound of your laugh when we are sitting at our favorite cafe talking about everything and nothing.",
+      "How comfortable and completely happy I feel every time we pose for a picture together.",
+      "The way you make the simplest ordinary days feel like memories I want to keep forever.",
+      "Your genuine warmth, your kind heart, and the way you make me smile without even trying."
+    ];
+
+    function nextNote() {
+      const q = document.getElementById('quoteBox');
+      q.style.opacity = '0';
+      setTimeout(() => {
+        q.innerText = `"${notes[Math.floor(Math.random() * notes.length)]}"`;
+        q.style.opacity = '1';
+      }, 200);
+    }
+
+    // Scratch Card
+    const canvas = document.getElementById('scratchCanvas');
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = '#C99E9B';
+    ctx.fillRect(0, 0, 320, 160);
+    ctx.fillStyle = '#FFFFFF';
+    ctx.font = '500 13px "Plus Jakarta Sans", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Scratch here with your finger ✨', 160, 85);
+
+    let rubbing = false;
+    function rub(e) {
+      if (!rubbing) return;
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+      const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+      const x = clientX - rect.left;
+      const y = clientY - rect.top;
+
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.beginPath();
+      ctx.arc(x, y, 18, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    canvas.addEventListener('mousedown', () => rubbing = true);
+    canvas.addEventListener('mouseup', () => rubbing = false);
+    canvas.addEventListener('mousemove', rub);
+    canvas.addEventListener('touchstart', () => rubbing = true);
+    canvas.addEventListener('touchend', () => rubbing = false);
+    canvas.addEventListener('touchmove', rub);
+  </script>
+</body>
+</html>
+
