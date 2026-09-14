@@ -2,625 +2,715 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Happy Birthday, My Love ♡</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-select=no">
+  <title>Under Our Stars ♡</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,500;1,400&family=Plus+Jakarta+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
     :root {
-      --bg-cream: #FFF9F7;
-      --soft-blush: #FDE8EC;
-      --rose-gold: #C07080;
-      --rose-glow: #FCE1E4;
-      --rose-dark: #632C35;
-      --candle-gold: #DDB076;
-      --text-main: #2A171B;
-      --text-muted: #82666D;
-      --glass-bg: rgba(255, 255, 255, 0.72);
-      --glass-border: rgba(255, 255, 255, 0.9);
-      --card-shadow: 0 20px 45px rgba(183, 110, 121, 0.12);
+      --space-black: #080308;
+      --star-gold: #F7E4B2;
+      --rose-nebula: #B76E79;
+      --deep-wine: #2B0D18;
+      --glow-pink: rgba(235, 142, 160, 0.4);
+      --glass: rgba(22, 10, 18, 0.75);
+      --border-glass: rgba(247, 228, 178, 0.25);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    
+
     body {
-      background-color: var(--bg-cream);
-      color: var(--text-main);
+      background-color: var(--space-black);
+      color: #FFFDF8;
       font-family: 'Plus Jakarta Sans', sans-serif;
       overflow-x: hidden;
-      line-height: 1.6;
+      min-height: 100vh;
       position: relative;
     }
 
-    /* Ambient Fairy Light Background */
-    #ambient-canvas {
+    canvas#galaxyCanvas {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      pointer-events: none;
       z-index: 1;
-    }
-
-    .aurora-layer {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
       pointer-events: none;
-      z-index: 0;
-      background: 
-        radial-gradient(circle at 15% 15%, rgba(253, 232, 236, 0.9) 0%, transparent 50%),
-        radial-gradient(circle at 85% 75%, rgba(246, 219, 185, 0.45) 0%, transparent 45%),
-        radial-gradient(circle at 50% 50%, rgba(255, 240, 243, 0.6) 0%, transparent 60%);
     }
 
-    /* Floating Luxury Music Widget */
-    .music-player {
+    /* Floating Celestial Music Player */
+    .audio-orb {
       position: fixed;
-      top: 22px;
-      right: 22px;
+      top: 24px;
+      right: 24px;
       z-index: 100;
-      background: var(--glass-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: var(--glass);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--border-glass);
       padding: 8px 18px 8px 10px;
       border-radius: 50px;
-      border: 1px solid var(--glass-border);
       display: flex;
       align-items: center;
-      gap: 12px;
-      box-shadow: 0 10px 30px rgba(192, 112, 128, 0.2);
+      gap: 10px;
+      box-shadow: 0 0 25px rgba(183, 110, 121, 0.3);
+      cursor: pointer;
       transition: all 0.3s ease;
     }
 
-    .music-player.playing {
-      box-shadow: 0 0 25px rgba(221, 176, 118, 0.5);
-      border-color: rgba(221, 176, 118, 0.6);
+    .audio-orb.active {
+      box-shadow: 0 0 35px rgba(247, 228, 178, 0.5);
+      border-color: var(--star-gold);
     }
 
-    .music-player button {
-      background: linear-gradient(135deg, var(--candle-gold), var(--rose-gold));
-      color: white;
-      border: none;
-      width: 36px;
-      height: 36px;
+    .play-icon {
+      width: 32px;
+      height: 32px;
       border-radius: 50%;
-      cursor: pointer;
-      font-size: 11px;
+      background: radial-gradient(circle, var(--star-gold), var(--rose-nebula));
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 4px 12px rgba(192, 112, 128, 0.35);
-      transition: transform 0.2s ease;
+      color: var(--space-black);
+      font-size: 11px;
+      font-weight: bold;
     }
 
-    .music-player button:hover { transform: scale(1.08); }
-
-    .song-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-main);
-      letter-spacing: -0.2px;
-    }
-
-    .container {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 90px 24px 30px;
-      text-align: center;
+    /* Main Container */
+    .wrapper {
       position: relative;
       z-index: 10;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 20px 80px;
+      text-align: center;
     }
 
-    h1, h2 {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-weight: 600;
-    }
-
-    /* Hero Section */
-    .hero {
-      padding: 20px 0 15px;
-    }
-
-    .script-accent {
-      font-family: 'Alex Brush', cursive;
-      font-size: 2.2rem;
-      color: var(--candle-gold);
-      display: block;
-      margin-bottom: -10px;
-      letter-spacing: 1px;
-    }
-
-    .hero-subtitle {
+    /* Header */
+    .stars-date {
+      font-family: 'Cinzel', serif;
+      letter-spacing: 5px;
+      font-size: 0.78rem;
+      color: var(--star-gold);
       text-transform: uppercase;
-      letter-spacing: 4px;
-      font-size: 0.76rem;
-      color: var(--rose-gold);
-      font-weight: 600;
+      opacity: 0.85;
       margin-bottom: 12px;
     }
 
-    .hero-title {
-      font-size: clamp(2.6rem, 7vw, 4rem);
-      line-height: 1.12;
-      color: var(--text-main);
-      margin-bottom: 20px;
-      letter-spacing: -0.5px;
+    h1.title {
+      font-family: 'Cinzel', serif;
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: #FFF;
+      text-shadow: 0 0 25px rgba(247, 228, 178, 0.35);
+      margin-bottom: 14px;
     }
 
-    .hero-title span {
-      background: linear-gradient(135deg, var(--rose-dark) 20%, var(--rose-gold) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    h1.title span {
+      font-family: 'Cormorant Garamond', serif;
       font-style: italic;
+      color: var(--star-gold);
     }
 
-    .hero-desc {
-      color: var(--text-muted);
+    p.subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      color: #E2CCD2;
       max-width: 520px;
-      font-size: 1.05rem;
-      margin: 0 auto;
-      line-height: 1.7;
+      margin: 0 auto 40px;
     }
 
-    /* Milestones Grid */
-    .counter-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    /* Milestone Orbit Cards */
+    .milestone-strip {
+      display: flex;
+      justify-content: center;
       gap: 18px;
-      margin: 45px 0 60px;
+      flex-wrap: wrap;
+      margin-bottom: 70px;
     }
 
-    .counter-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      padding: 28px 16px;
-      border-radius: 22px;
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--card-shadow);
-      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    .orbit-pill {
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-glass);
+      border-radius: 30px;
+      padding: 12px 28px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     }
 
-    .counter-card:hover {
-      transform: translateY(-5px);
+    .orbit-val {
+      font-family: 'Cinzel', serif;
+      font-size: 1.6rem;
+      color: var(--star-gold);
     }
 
-    .counter-number {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 3rem;
-      font-weight: 600;
-      color: var(--rose-dark);
-      line-height: 1;
-    }
-
-    .counter-label {
-      font-size: 0.76rem;
-      color: var(--text-muted);
-      margin-top: 8px;
+    .orbit-lbl {
+      font-size: 0.72rem;
       text-transform: uppercase;
       letter-spacing: 1.5px;
-      font-weight: 500;
+      color: #C0A8AF;
     }
 
-    /* Scrapbook Gallery with Washi Tape */
-    .gallery-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 32px;
-      margin: 35px 0 70px;
-    }
-
-    .polaroid {
-      background: #FFFFFF;
-      padding: 14px 14px 28px 14px;
-      border-radius: 3px;
-      box-shadow: 0 16px 36px rgba(42, 23, 27, 0.08), 0 2px 6px rgba(0,0,0,0.04);
-      width: 245px;
-      position: relative;
-      transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-
-    /* Washi Tape Strip */
-    .polaroid::before {
-      content: '';
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 24px;
-      background: rgba(221, 176, 118, 0.55);
-      border-left: 2px dashed rgba(255,255,255,0.4);
-      border-right: 2px dashed rgba(255,255,255,0.4);
-      box-shadow: 0 2px 5px rgba(0,0,0,0.04);
-      z-index: 5;
-    }
-
-    .polaroid:hover {
-      transform: scale(1.06) rotate(0deg) translateY(-8px) !important;
-      box-shadow: 0 25px 45px rgba(183, 110, 121, 0.22);
-      z-index: 15;
-    }
-
-    .polaroid img {
-      width: 100%;
-      height: 265px;
-      object-fit: cover;
-      border-radius: 2px;
-    }
-
-    .polaroid p {
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-style: italic;
-      margin-top: 15px;
-      font-size: 1.22rem;
-      color: var(--text-main);
-    }
-
-    /* Interactive Affirmation Engine */
-    .generator-section {
-      margin: 60px 0;
-      background: var(--glass-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+    /* Interactive Constellation Sky-Map */
+    .constellation-panel {
+      background: radial-gradient(circle at center, rgba(43, 13, 24, 0.4) 0%, rgba(10, 4, 10, 0.7) 100%);
+      border: 1px solid var(--border-glass);
       border-radius: 28px;
-      padding: 42px 28px;
-      border: 1px solid var(--glass-border);
-      box-shadow: var(--card-shadow);
+      padding: 40px 20px;
       position: relative;
-      overflow: hidden;
+      margin-bottom: 70px;
+      box-shadow: 0 0 50px rgba(183, 110, 121, 0.15);
     }
 
-    .generator-section::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--candle-gold), var(--rose-gold), var(--candle-gold));
+    .panel-heading {
+      font-family: 'Cinzel', serif;
+      font-size: 1.3rem;
+      color: var(--star-gold);
+      letter-spacing: 2px;
+      margin-bottom: 6px;
     }
 
-    .quote-box {
-      min-height: 90px;
+    .panel-sub {
+      font-size: 0.85rem;
+      color: #BA9EA6;
+      margin-bottom: 35px;
+    }
+
+    .star-node-row {
       display: flex;
+      justify-content: space-around;
       align-items: center;
-      justify-content: center;
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1.45rem;
-      font-style: italic;
-      color: var(--rose-dark);
-      margin: 22px 0;
-      padding: 0 10px;
+      flex-wrap: wrap;
+      gap: 20px;
+      position: relative;
+    }
+
+    .star-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      background: none;
+      border: none;
+      outline: none;
       transition: all 0.3s ease;
     }
 
-    .btn-magic {
-      background: linear-gradient(135deg, var(--candle-gold) 0%, var(--rose-gold) 100%);
-      color: white;
-      border: none;
-      padding: 14px 34px;
-      font-size: 0.96rem;
-      font-weight: 600;
+    .star-disc {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: var(--glass);
+      border: 1.5px solid var(--border-glass);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: var(--star-gold);
+      box-shadow: 0 0 15px rgba(247, 228, 178, 0.2);
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .star-node:hover .star-disc,
+    .star-node.unlocked .star-disc {
+      background: radial-gradient(circle, var(--star-gold), var(--rose-nebula));
+      color: var(--space-black);
+      box-shadow: 0 0 30px rgba(247, 228, 178, 0.8);
+      transform: scale(1.15);
+    }
+
+    .star-caption {
+      font-family: 'Cinzel', serif;
+      font-size: 0.78rem;
+      letter-spacing: 1px;
+      color: #E2CCD2;
+      margin-top: 10px;
+    }
+
+    /* Modal / Lightbox for Unlocked Constellation Memory */
+    .memory-portal {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(4, 2, 6, 0.88);
+      backdrop-filter: blur(18px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .memory-portal.visible {
+      display: flex;
+      opacity: 1;
+    }
+
+    .crystal-card {
+      background: var(--glass);
+      border: 1px solid var(--border-glass);
+      box-shadow: 0 0 60px rgba(183, 110, 121, 0.4);
+      padding: 20px 20px 30px;
+      border-radius: 20px;
+      max-width: 360px;
+      width: 100%;
+      text-align: center;
+      transform: scale(0.9);
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .memory-portal.visible .crystal-card {
+      transform: scale(1);
+    }
+
+    .crystal-card img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid rgba(247, 228, 178, 0.3);
+    }
+
+    .crystal-card h3 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      color: var(--star-gold);
+      margin-top: 16px;
+    }
+
+    .crystal-card p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      font-style: italic;
+      color: #F8E8EC;
+      margin-top: 4px;
+    }
+
+    .close-btn {
+      margin-top: 18px;
+      background: none;
+      border: 1px solid var(--border-glass);
+      color: var(--star-gold);
+      padding: 8px 24px;
       border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 8px 22px rgba(192, 112, 128, 0.32);
-      transition: all 0.25s ease;
+      font-size: 0.8rem;
+      letter-spacing: 1px;
     }
 
-    .btn-magic:hover {
+    /* Affirmation Star Chamber */
+    .starlight-chamber {
+      background: var(--glass);
+      backdrop-filter: blur(14px);
+      border: 1px solid var(--border-glass);
+      border-radius: 28px;
+      padding: 45px 25px;
+      margin-bottom: 70px;
+      box-shadow: 0 0 45px rgba(0, 0, 0, 0.5);
+    }
+
+    .chamber-quote {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-style: italic;
+      color: #FFFDF8;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      padding: 0 15px;
+    }
+
+    .starlight-btn {
+      background: radial-gradient(circle, var(--star-gold), var(--rose-nebula));
+      color: var(--space-black);
+      border: none;
+      padding: 14px 34px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 0 25px rgba(247, 228, 178, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .starlight-btn:hover {
+      box-shadow: 0 0 40px rgba(247, 228, 178, 0.75);
       transform: translateY(-2px);
-      box-shadow: 0 12px 26px rgba(192, 112, 128, 0.42);
     }
 
-    .btn-magic:active { transform: scale(0.97); }
+    /* Secret Moon Scratch Surface */
+    .moon-scratch-box {
+      margin: 40px 0;
+    }
 
-    /* Scratch Card */
-    .scratch-wrapper {
+    .moon-wrap {
       position: relative;
       width: 320px;
-      height: 165px;
-      margin: 28px auto;
-      border-radius: 18px;
+      height: 170px;
+      margin: 25px auto;
+      border-radius: 24px;
       overflow: hidden;
-      box-shadow: 0 16px 36px rgba(42, 23, 27, 0.12);
-      user-select: none;
-      -webkit-user-select: none;
+      border: 1px solid var(--border-glass);
+      box-shadow: 0 0 40px rgba(183, 110, 121, 0.3);
     }
 
-    .scratch-secret {
+    .moon-secret {
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: linear-gradient(135deg, #FFF4F6, var(--soft-blush));
-      border: 2px dashed var(--rose-gold);
-      border-radius: 18px;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: radial-gradient(circle at center, #351320 0%, #16070E 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 14px;
+      padding: 15px;
+      border-radius: 24px;
     }
 
-    .scratch-canvas {
+    .moon-secret h4 {
+      font-family: 'Cinzel', serif;
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      color: var(--star-gold);
+    }
+
+    .moon-secret p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: #FFF;
+      margin: 8px 0;
+    }
+
+    .moon-canvas {
       position: absolute;
       top: 0; left: 0;
-      cursor: grab;
-      border-radius: 18px;
+      cursor: pointer;
     }
 
-    .scratch-canvas:active { cursor: grabbing; }
-
     footer {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      margin-top: 60px;
-      letter-spacing: 0.5px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      color: #9A7C85;
+      margin-top: 50px;
     }
   </style>
 </head>
 <body>
 
-  <div class="aurora-layer"></div>
-  <canvas id="ambient-canvas"></canvas>
+  <!-- Fullscreen Galaxy & Nebula Engine -->
+  <canvas id="galaxyCanvas"></canvas>
 
-  <!-- YouTube Audio Controller -->
-  <div class="music-player" id="playerWrap">
-    <button id="songBtn" onclick="toggleYTSong()">▶</button>
+  <!-- Pehli Dafa Audio Orb -->
+  <div class="audio-orb" id="orbToggle" onclick="toggleCelestialSong()">
+    <div class="play-icon" id="playIcon">▶</div>
     <div style="text-align: left;">
-      <div class="song-title">Pehli Dafa ♡</div>
-      <div style="font-size: 10px; color: var(--text-muted);">Atif Aslam</div>
+      <div style="font-size: 11px; font-weight: 600; color: var(--star-gold); letter-spacing: 0.5px;">Pehli Dafa ♡</div>
+      <div style="font-size: 9px; color: #BA9EA6;">Atif Aslam</div>
     </div>
   </div>
 
-  <iframe id="ytPlayer" width="1" height="1" 
+  <iframe id="ytAudio" width="1" height="1" 
     src="https://www.youtube-nocookie.com/embed/SxTYjptEzZs?enablejsapi=1&playsinline=1" 
     frameborder="0" allow="autoplay" style="position: absolute; opacity: 0; pointer-events: none;">
   </iframe>
 
-  <div class="container">
-    <section class="hero">
-      <span class="script-accent">to my soulmate</span>
-      <div class="hero-subtitle">October 12, 2024 • Where It All Began</div>
-      <h1 class="hero-title">Happy Birthday, <span>My Favorite Person</span> ♡</h1>
-      <p class="hero-desc">Every moment since the first day has been pure magic. Here’s a little corner of the world built just to celebrate you.</p>
-    </section>
+  <div class="wrapper">
+    <!-- Header -->
+    <div class="stars-date">October 12, 2024 • Written In The Stars</div>
+    <h1 class="title">To My <span>Universe</span></h1>
+    <p class="subtitle">Every constellation in my sky leads directly to you. Tap each star below to unravel our memories.</p>
 
-    <!-- Milestone Counters -->
-    <div class="counter-grid">
-      <div class="counter-card">
-        <div class="counter-number" id="daysCount">--</div>
-        <div class="counter-label">Days Loving You</div>
+    <!-- Celestial Milestones -->
+    <div class="milestone-strip">
+      <div class="orbit-pill">
+        <div class="orbit-val" id="daysCounter">--</div>
+        <div class="orbit-lbl">Days Sharing Starlight</div>
       </div>
-      <div class="counter-card">
-        <div class="counter-number">10,000+</div>
-        <div class="counter-label">Laughs Shared</div>
+      <div class="orbit-pill">
+        <div class="orbit-val">10,000+</div>
+        <div class="orbit-lbl">Infinite Laughs</div>
       </div>
-      <div class="counter-card">
-        <div class="counter-number">∞</div>
-        <div class="counter-label">Adventures Ahead</div>
+      <div class="orbit-pill">
+        <div class="orbit-val">∞</div>
+        <div class="orbit-lbl">Galaxies Ahead</div>
       </div>
     </div>
 
-    <!-- Scrapbook Photos -->
-    <section>
-      <h2 style="font-size: 2.3rem;">Moments I Cherish</h2>
-      <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 4px;">My three favorite chapters with you</p>
-      
-      <div class="gallery-grid">
-        <div class="polaroid" style="transform: rotate(-2.5deg);">
-          <img src="met.jpg.JPG" alt="The place we met">
-          <p>The place we met ♡</p>
-        </div>
-        <div class="polaroid" style="transform: rotate(2deg);">
-          <img src="cafe.jpg.HEIC" alt="Our go to Cafe">
-          <p>Our go-to café ☕</p>
-        </div>
-        <div class="polaroid" style="transform: rotate(-1.5deg);">
-          <img src="pose.jpg.HEIC" alt="Go to pose">
-          <p>Our go-to pose ✨</p>
-        </div>
+    <!-- The Star Constellation Navigation -->
+    <div class="constellation-panel">
+      <div class="panel-heading">The Memory Constellation</div>
+      <div class="panel-sub">Tap the 3 celestial stars to open our portals</div>
+
+      <div class="star-node-row">
+        <!-- Star 1 -->
+        <button class="star-node" onclick="openPortal('met')">
+          <div class="star-disc">✦</div>
+          <div class="star-caption">I. The Origin</div>
+        </button>
+
+        <!-- Star 2 -->
+        <button class="star-node" onclick="openPortal('cafe')">
+          <div class="star-disc">★</div>
+          <div class="star-caption">II. Our Cafe</div>
+        </button>
+
+        <!-- Star 3 -->
+        <button class="star-node" onclick="openPortal('pose')">
+          <div class="star-disc">✧</div>
+          <div class="star-caption">III. The Pose</div>
+        </button>
       </div>
-    </section>
+    </div>
 
-    <!-- Interactive Generator -->
-    <section class="generator-section">
-      <div style="text-transform: uppercase; letter-spacing: 2.5px; font-size: 0.72rem; color: var(--rose-gold); font-weight: 700;">Daily Affirmation Engine</div>
-      <div class="quote-box" id="quoteBox">"Click below whenever you need a reminder of how deeply you are loved..."</div>
-      <button class="btn-magic" onclick="nextNote(event)">Tell Me Why You Love Me ✨</button>
-    </section>
+    <!-- Affirmation Star Chamber -->
+    <div class="starlight-chamber">
+      <div style="font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 2px; color: var(--star-gold); margin-bottom: 12px;">The Starlight Affirmation</div>
+      <div class="chamber-quote" id="starlightQuote">"Tap the starlight button whenever you want to be reminded why you're my whole world..."</div>
+      <button class="starlight-btn" onclick="nextStarlight(event)">Speak To The Stars ✨</button>
+    </div>
 
-    <!-- Scratch Voucher -->
-    <section style="margin: 50px 0;">
-      <h2 style="font-size: 2.3rem;">Your Birthday Surprise</h2>
-      <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 4px;">Scratch with your finger to reveal your voucher</p>
+    <!-- Secret Moon Scratch Card -->
+    <div class="moon-scratch-box">
+      <div class="panel-heading">The Celestial Secret</div>
+      <p class="panel-sub">Clear the stardust off the moon to reveal your birthday date</p>
 
-      <div class="scratch-wrapper">
-        <div class="scratch-secret">
-          <span style="font-size: 10px; color: var(--rose-gold); font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">Official Birthday Voucher</span>
-          <span style="font-size: 1.35rem; font-weight: bold; font-family:'Cormorant Garamond', Georgia, serif; color: var(--text-main); margin-top: 6px;">
-            Chole bhature at delhi wale ❤️
-          </span>
-          <span style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">Extra bhature on me • Valid forever</span>
+      <div class="moon-wrap">
+        <div class="moon-secret">
+          <h4>Certified Birthday Surprise</h4>
+          <p>Chole bhature at delhi wale ❤️</p>
+          <span style="font-size: 10px; color: var(--star-gold); letter-spacing: 1px;">EXTRA BHATURE INCLUDED • VALID FOR ETERNITY</span>
         </div>
-        <canvas id="scratchCanvas" class="scratch-canvas" width="320" height="165"></canvas>
+        <canvas id="moonScratchCanvas" class="moon-canvas" width="320" height="170"></canvas>
       </div>
-    </section>
+    </div>
 
     <footer>
-      Forever grateful for 12 October 2024 ♡
+      Written In The Heavens On 12.10.2024 ♡
     </footer>
   </div>
 
+  <!-- Memory Modal Lightbox -->
+  <div class="memory-portal" id="memoryPortal">
+    <div class="crystal-card">
+      <img id="portalImage" src="" alt="Memory">
+      <h3 id="portalTitle">Title</h3>
+      <p id="portalDesc">Description</p>
+      <button class="close-btn" onclick="closePortal()">Return To The Stars ✕</button>
+    </div>
+  </div>
+
   <script>
-    // 1. YouTube Audio Player with Ambient Visualizer glow
-    let isPlaying = false;
-    function toggleYTSong() {
-      const iframe = document.getElementById('ytPlayer');
-      const btn = document.getElementById('songBtn');
-      const wrap = document.getElementById('playerWrap');
-      
-      if (!isPlaying) {
-        iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-        btn.innerText = '❚❚';
-        wrap.classList.add('playing');
-        isPlaying = true;
+    // 1. YouTube Celestial Player
+    let playing = false;
+    function toggleCelestialSong() {
+      const frame = document.getElementById('ytAudio');
+      const icon = document.getElementById('playIcon');
+      const orb = document.getElementById('orbToggle');
+      if (!playing) {
+        frame.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+        icon.innerText = '❚❚';
+        orb.classList.add('active');
+        playing = true;
       } else {
-        iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-        btn.innerText = '▶';
-        wrap.classList.remove('playing');
-        isPlaying = false;
+        frame.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+        icon.innerText = '▶';
+        orb.classList.remove('active');
+        playing = false;
       }
     }
 
-    // 2. Days Counter (Oct 12, 2024)
-    const firstDate = new Date(2024, 9, 12);
-    const currentDate = new Date();
-    const elapsedDays = Math.floor((currentDate - firstDate) / (1000 * 60 * 60 * 24));
-    document.getElementById('daysCount').innerText = elapsedDays;
+    // 2. Days Counter: Oct 12, 2024
+    const firstMet = new Date(2024, 9, 12);
+    const today = new Date();
+    const totalDays = Math.floor((today - firstMet) / (1000 * 60 * 60 * 24));
+    document.getElementById('daysCounter').innerText = totalDays;
 
-    // 3. Compliment Generator with Sparkle Bursts
-    const notes = [
-      "The exact moment on October 12 when I looked at you and knew you were someone special.",
-      "The sound of your laugh when we sit at our favorite cafe talking about everything and nothing.",
-      "How comforting and safe it feels just leaning against you for a picture.",
-      "The effortless way you make completely normal days turn into lifelong memories.",
-      "Your genuine warmth, soft heart, and how effortlessly you make me smile every single day."
-    ];
+    // 3. Memory Constellation Lightbox Data
+    const memoryData = {
+      met: {
+        src: 'met.jpg.JPG',
+        title: 'Where It All Began',
+        desc: 'The place we met ♡ October 12, 2024'
+      },
+      cafe: {
+        src: 'cafe.jpg.HEIC',
+        title: 'Our Sanctuary',
+        desc: 'Our go-to café and countless laughs ☕'
+      },
+      pose: {
+        src: 'pose.jpg.HEIC',
+        title: 'Our Signature',
+        desc: 'Our go-to pose, forever and always ✨'
+      }
+    };
 
-    function nextNote(e) {
-      const q = document.getElementById('quoteBox');
-      
-      // Micro-confetti burst on button click
+    function openPortal(key) {
+      const portal = document.getElementById('memoryPortal');
+      const img = document.getElementById('portalImage');
+      const title = document.getElementById('portalTitle');
+      const desc = document.getElementById('portalDesc');
+
+      img.src = memoryData[key].src;
+      title.innerText = memoryData[key].title;
+      desc.innerText = memoryData[key].desc;
+
+      portal.classList.add('visible');
+
       if (window.confetti) {
         confetti({
-          particleCount: 25,
-          spread: 50,
-          origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight },
-          colors: ['#DDB076', '#C07080', '#FFF']
+          particleCount: 30,
+          spread: 60,
+          origin: { y: 0.5 },
+          colors: ['#F7E4B2', '#B76E79', '#FFFFFF']
         });
       }
+    }
 
+    function closePortal() {
+      document.getElementById('memoryPortal').classList.remove('visible');
+    }
+
+    // 4. Starlight Affirmations
+    const starlightNotes = [
+      "The exact moment on October 12 when the universe rearranged itself to bring me to you.",
+      "The quiet moments in our cafe where the whole noisy world simply dissolves.",
+      "The way you lean against me whenever we take a picture—feeling like home.",
+      "Your laugh, your heart, and the warmth you give to every second of my life.",
+      "How effortlessly you turned an ordinary world into an extraordinary constellation."
+    ];
+
+    function nextStarlight(e) {
+      const q = document.getElementById('starlightQuote');
+      if (window.confetti) {
+        confetti({
+          particleCount: 20,
+          spread: 45,
+          origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight },
+          colors: ['#F7E4B2', '#B76E79']
+        });
+      }
       q.style.opacity = '0';
-      q.style.transform = 'translateY(6px)';
+      q.style.transform = 'translateY(5px)';
       setTimeout(() => {
-        q.innerText = `"${notes[Math.floor(Math.random() * notes.length)]}"`;
+        q.innerText = `"${starlightNotes[Math.floor(Math.random() * starlightNotes.length)]}"`;
         q.style.opacity = '1';
         q.style.transform = 'translateY(0)';
       }, 250);
     }
 
-    // 4. Scratch-Off Canvas with Big Confetti Reveal
-    const canvas = document.getElementById('scratchCanvas');
-    const ctx = canvas.getContext('2d');
+    // 5. Moon Scratch Surface
+    const mCanvas = document.getElementById('moonScratchCanvas');
+    const mCtx = mCanvas.getContext('2d');
     
-    // Rose-Gold Brushed Foil Effect
-    const grad = ctx.createLinearGradient(0, 0, 320, 165);
-    grad.addColorStop(0, '#CBB0B4');
-    grad.addColorStop(0.5, '#E2C8CC');
-    grad.addColorStop(1, '#C2A3A8');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, 320, 165);
+    // Stardust Metallic Cover
+    const starGrad = mCtx.createLinearGradient(0, 0, 320, 170);
+    starGrad.addColorStop(0, '#5C404E');
+    starGrad.addColorStop(0.5, '#D4B896');
+    starGrad.addColorStop(1, '#2D1B28');
+    mCtx.fillStyle = starGrad;
+    mCtx.fillRect(0, 0, 320, 170);
 
-    ctx.fillStyle = '#FFFFFF';
-    ctx.font = '600 13px "Plus Jakarta Sans", sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('Scratch here with your finger ✨', 160, 88);
+    mCtx.fillStyle = '#FFFDF8';
+    mCtx.font = '600 12px "Cinzel", serif';
+    mCtx.textAlign = 'center';
+    mCtx.fillText('Brush away the stardust ✨', 160, 90);
 
     let rubbing = false;
-    let scratchedAmount = 0;
-    let hasCelebrated = false;
+    let rubbedTicks = 0;
+    let blasted = false;
 
-    function rub(e) {
+    function rubMoon(e) {
       if (!rubbing) return;
-      const rect = canvas.getBoundingClientRect();
+      const rect = mCanvas.getBoundingClientRect();
       const clientX = e.clientX || (e.touches && e.touches[0].clientX);
       const clientY = e.clientY || (e.touches && e.touches[0].clientY);
       const x = clientX - rect.left;
       const y = clientY - rect.top;
 
-      ctx.globalCompositeOperation = 'destination-out';
-      ctx.beginPath();
-      ctx.arc(x, y, 22, 0, Math.PI * 2);
-      ctx.fill();
+      mCtx.globalCompositeOperation = 'destination-out';
+      mCtx.beginPath();
+      mCtx.arc(x, y, 22, 0, Math.PI * 2);
+      mCtx.fill();
 
-      scratchedAmount++;
-      if (scratchedAmount > 45 && !hasCelebrated) {
-        hasCelebrated = true;
+      rubbedTicks++;
+      if (rubbedTicks > 40 && !blasted) {
+        blasted = true;
         if (window.confetti) {
           confetti({
-            particleCount: 80,
-            spread: 90,
-            origin: { y: 0.75 },
-            colors: ['#C07080', '#DDB076', '#FFCCD5']
+            particleCount: 90,
+            spread: 100,
+            origin: { y: 0.8 },
+            colors: ['#F7E4B2', '#B76E79', '#FFF']
           });
         }
       }
     }
 
-    canvas.addEventListener('mousedown', () => rubbing = true);
-    canvas.addEventListener('mouseup', () => rubbing = false);
-    canvas.addEventListener('mousemove', rub);
-    canvas.addEventListener('touchstart', () => rubbing = true);
-    canvas.addEventListener('touchend', () => rubbing = false);
-    canvas.addEventListener('touchmove', rub);
+    mCanvas.addEventListener('mousedown', () => rubbing = true);
+    mCanvas.addEventListener('mouseup', () => rubbing = false);
+    mCanvas.addEventListener('mousemove', rubMoon);
+    mCanvas.addEventListener('touchstart', () => rubbing = true);
+    mCanvas.addEventListener('touchend', () => rubbing = false);
+    mCanvas.addEventListener('touchmove', rubMoon);
 
-    // 5. Floating Ambient Dust & Petals Canvas
-    const ambCanvas = document.getElementById('ambient-canvas');
-    const ambCtx = ambCanvas.getContext('2d');
-    let particles = [];
+    // 6. Dynamic Starfield & Nebula Canvas
+    const canvas = document.getElementById('galaxyCanvas');
+    const ctx = canvas.getContext('2d');
+    let stars = [];
 
-    function resizeAmb() {
-      ambCanvas.width = window.innerWidth;
-      ambCanvas.height = window.innerHeight;
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     }
-    window.addEventListener('resize', resizeAmb);
-    resizeAmb();
+    window.addEventListener('resize', resize);
+    resize();
 
-    class Particle {
+    class CosmicStar {
       constructor() {
         this.reset();
       }
       reset() {
-        this.x = Math.random() * ambCanvas.width;
-        this.y = ambCanvas.height + Math.random() * 20;
-        this.size = Math.random() * 3.5 + 1.5;
-        this.speedY = Math.random() * 0.7 + 0.3;
-        this.speedX = (Math.random() - 0.5) * 0.4;
-        this.opacity = Math.random() * 0.5 + 0.2;
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 0.5;
+        this.alpha = Math.random();
+        this.speed = Math.random() * 0.02 + 0.005;
       }
       update() {
-        this.y -= this.speedY;
-        this.x += this.speedX;
-        if (this.y < -10) this.reset();
+        this.alpha += this.speed;
+        if (this.alpha > 1 || this.alpha < 0) this.speed = -this.speed;
       }
       draw() {
-        ambCtx.fillStyle = `rgba(221, 176, 118, ${this.opacity})`;
-        ambCtx.beginPath();
-        ambCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ambCtx.fill();
+        ctx.fillStyle = `rgba(247, 228, 178, ${Math.abs(this.alpha)})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
       }
     }
 
-    for (let i = 0; i < 35; i++) {
-      particles.push(new Particle());
+    for (let i = 0; i < 90; i++) {
+      stars.push(new CosmicStar());
     }
 
-    function animateAmb() {
-      ambCtx.clearRect(0, 0, ambCanvas.width, ambCanvas.height);
-      particles.forEach(p => {
-        p.update();
-        p.draw();
+    function renderGalaxy() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      stars.forEach(s => {
+        s.update();
+        s.draw();
       });
-      requestAnimationFrame(animateAmb);
+      requestAnimationFrame(renderGalaxy);
     }
-    animateAmb();
+    renderGalaxy();
   </script>
 </body>
 </html>
