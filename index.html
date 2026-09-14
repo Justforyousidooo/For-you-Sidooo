@@ -44,7 +44,7 @@
       }
     }
 
-    /* First-time Guide Overlay */
+    /* First-Time Guide Overlay */
     .guide-overlay {
       position: absolute;
       top: 0; left: 0; width: 100%; height: 100%;
@@ -184,7 +184,7 @@
 
     .slide-content {
       position: relative;
-      z-index: 30; /* Elevated above tap zone */
+      z-index: 30;
       color: #FFF;
       animation: slideUp 0.45s ease;
     }
@@ -261,7 +261,7 @@
       margin-top: 2px;
     }
 
-    /* Working Interactive Note Box */
+    /* Note Generator Sticker */
     .note-sticker {
       background: rgba(255, 255, 255, 0.18);
       backdrop-filter: blur(16px);
@@ -301,7 +301,7 @@
       z-index: 45;
     }
 
-    /* Working Scratch Canvas Layer */
+    /* Scratch Card */
     .scratch-wrapper {
       position: relative;
       width: 100%;
@@ -343,7 +343,7 @@
       touch-action: none;
     }
 
-    /* Navigation Tap Zones (z-index below interactive cards) */
+    /* Navigation Zones */
     .tap-zone {
       position: absolute;
       top: 50px;
@@ -421,7 +421,7 @@
 
   <div class="story-viewport">
 
-    <!-- First Time User Guide Modal -->
+    <!-- First Time Guide Modal -->
     <div class="guide-overlay" id="guideModal">
       <div class="guide-card">
         <div class="guide-icon">✨</div>
@@ -442,7 +442,7 @@
       </div>
     </div>
     
-    <!-- Progress Bars -->
+    <!-- 8 Story Progress Bars -->
     <div class="story-progress-bar">
       <div class="progress-track"><div class="progress-fill" id="fill-0"></div></div>
       <div class="progress-track"><div class="progress-fill" id="fill-1"></div></div>
@@ -454,7 +454,7 @@
       <div class="progress-track"><div class="progress-fill" id="fill-7"></div></div>
     </div>
 
-    <!-- Tap Zones -->
+    <!-- Navigation Tap Zones -->
     <div class="tap-zone tap-left" onclick="prevSlide()"></div>
     <div class="tap-zone tap-right" onclick="nextSlide()"></div>
 
@@ -485,7 +485,7 @@
 
       <!-- Slide 1: The Place We Met -->
       <div class="slide" id="slide-1">
-        <img class="slide-bg" src="met.jpg.JPG" alt="Where we met">
+        <img class="slide-bg" src="met.jpg.JPG" alt="The place we met">
         <div class="slide-gradient"></div>
         <div class="slide-content">
           <div class="tag-badge">Chapter I • 12 Oct 2024</div>
@@ -494,9 +494,9 @@
         </div>
       </div>
 
-      <!-- Slide 2: First Picture In My Phone -->
+      <!-- Slide 2: First Picture in My Phone -->
       <div class="slide" id="slide-2">
-        <img class="slide-bg" src="first_pic.jpg" alt="First picture in phone">
+        <img class="slide-bg" src="First%20picture.HEIC" alt="First picture in my phone">
         <div class="slide-gradient"></div>
         <div class="slide-content">
           <div class="tag-badge">Chapter II • A Keeper</div>
@@ -507,7 +507,7 @@
 
       <!-- Slide 3: First Act Together -->
       <div class="slide" id="slide-3">
-        <img class="slide-bg" src="first_act.jpg" alt="First act together">
+        <img class="slide-bg" src="first%20act.HEIC" alt="First act together">
         <div class="slide-gradient"></div>
         <div class="slide-content">
           <div class="tag-badge">Chapter III • Unstoppable Team</div>
@@ -518,7 +518,7 @@
 
       <!-- Slide 4: Go-To Cafe + Love Generator -->
       <div class="slide" id="slide-4">
-        <img class="slide-bg" src="cafe.jpg.HEIC" alt="Our Cafe">
+        <img class="slide-bg" src="cafe.jpg.HEIC" alt="Our Go To Cafe">
         <div class="slide-gradient"></div>
         <div class="slide-content">
           <div class="tag-badge">Chapter IV • Our Spot</div>
@@ -532,7 +532,7 @@
 
       <!-- Slide 5: Signature Pose -->
       <div class="slide" id="slide-5">
-        <img class="slide-bg" src="pose.jpg.HEIC" alt="Signature Pose">
+        <img class="slide-bg" src="pose.jpg.HEIC" alt="Our Go To Pose">
         <div class="slide-gradient"></div>
         <div class="slide-content">
           <div class="tag-badge">Chapter V • Trademark</div>
@@ -541,14 +541,14 @@
         </div>
       </div>
 
-      <!-- Slide 6: Last Day of MBA -->
+      <!-- Slide 6: Last Day at College -->
       <div class="slide" id="slide-6">
-        <img class="slide-bg" src="mba_last_day.jpg" alt="MBA Journey">
+        <img class="slide-bg" src="Last%20day%20at%20college.JPG" alt="Last day at college">
         <div class="slide-gradient"></div>
         <div class="slide-content">
           <div class="tag-badge">Chapter VI • Milestone</div>
           <h2 class="slide-title">The End of A <span>Beautiful Journey</span></h2>
-          <p class="slide-desc">The last day of our MBA adventure together. We laughed, grew, and conquered every challenge side by side.</p>
+          <p class="slide-desc">The last day of our college journey together. We laughed, grew, and conquered every challenge side by side.</p>
         </div>
       </div>
 
@@ -584,7 +584,7 @@
       <button class="play-btn" id="playBtn" onclick="toggleSong()">▶</button>
     </div>
 
-    <!-- YouTube Frame -->
+    <!-- YouTube Audio Frame -->
     <iframe id="ytFrame" width="1" height="1" 
       src="https://www.youtube-nocookie.com/embed/SxTYjptEzZs?enablejsapi=1&playsinline=1" 
       frameborder="0" allow="autoplay" style="position: absolute; opacity: 0; pointer-events: none;">
@@ -598,7 +598,7 @@
       const g = document.getElementById('guideModal');
       g.style.opacity = '0';
       setTimeout(() => { g.style.display = 'none'; }, 400);
-      toggleSong(); // Auto start song upon starting
+      toggleSong();
     }
 
     // Days Counter
@@ -625,7 +625,7 @@
         }
       }
       if (currentSlide === 7) {
-        initCanvas(); // Redraw canvas on final slide transition
+        initCanvas();
       }
     }
 
@@ -648,7 +648,7 @@
       "The exact moment on October 12 when I knew you were going to be special to me.",
       "The sound of your laugh when we sit at our favorite cafe talking for hours.",
       "How proud and lucky I felt watching you take the stage during our first act together.",
-      "Our crazy MBA days together and how much brighter you made every single moment.",
+      "Our crazy college days together and how much brighter you made every single moment.",
       "How completely natural and right everything feels whenever we're together.",
       "Your genuine warmth, soft heart, and how effortlessly you make me smile."
     ];
@@ -674,7 +674,6 @@
     // Scratch Card Engine
     const canvas = document.getElementById('scratchCanvas');
     const ctx = canvas.getContext('2d');
-    let isCanvasDrawn = false;
 
     function initCanvas() {
       const wrap = document.getElementById('scratchWrap');
@@ -688,7 +687,6 @@
       ctx.font = '600 13px "Plus Jakarta Sans", sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText('Scratch here with your finger ✨', canvas.width / 2, canvas.height / 2 + 5);
-      isCanvasDrawn = true;
     }
     window.addEventListener('load', initCanvas);
     window.addEventListener('resize', initCanvas);
@@ -745,7 +743,6 @@
       }
     }
 
-    // Scratch event listeners
     canvas.addEventListener('mousedown', startScratch);
     window.addEventListener('mouseup', stopScratch);
     canvas.addEventListener('mousemove', scratch);
