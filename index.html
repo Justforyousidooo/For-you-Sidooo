@@ -6,18 +6,22 @@
   <title>Happy Birthday, My Love ♡</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
   <style>
     :root {
-      --bg-cream: #FAF6F0;
-      --soft-blush: #FCECEE;
-      --rose-gold: #B76E79;
-      --rose-dark: #8C4751;
-      --candle-gold: #E6C594;
-      --text-main: #332427;
-      --text-muted: #7E6B70;
-      --card-bg: rgba(255, 255, 255, 0.92);
+      --bg-cream: #FFF9F7;
+      --soft-blush: #FDE8EC;
+      --rose-gold: #C07080;
+      --rose-glow: #FCE1E4;
+      --rose-dark: #632C35;
+      --candle-gold: #DDB076;
+      --text-main: #2A171B;
+      --text-muted: #82666D;
+      --glass-bg: rgba(255, 255, 255, 0.72);
+      --glass-border: rgba(255, 255, 255, 0.9);
+      --card-shadow: 0 20px 45px rgba(183, 110, 121, 0.12);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -28,57 +32,90 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
       overflow-x: hidden;
       line-height: 1.6;
-      background-image: 
-        radial-gradient(circle at 10% 20%, rgba(252, 236, 238, 0.85) 0%, transparent 45%),
-        radial-gradient(circle at 90% 80%, rgba(230, 197, 148, 0.35) 0%, transparent 45%);
-      padding-bottom: 70px;
+      position: relative;
     }
 
-    /* Embedded YouTube Floating Player */
+    /* Ambient Fairy Light Background */
+    #ambient-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .aurora-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      background: 
+        radial-gradient(circle at 15% 15%, rgba(253, 232, 236, 0.9) 0%, transparent 50%),
+        radial-gradient(circle at 85% 75%, rgba(246, 219, 185, 0.45) 0%, transparent 45%),
+        radial-gradient(circle at 50% 50%, rgba(255, 240, 243, 0.6) 0%, transparent 60%);
+    }
+
+    /* Floating Luxury Music Widget */
     .music-player {
       position: fixed;
-      top: 18px;
-      right: 18px;
+      top: 22px;
+      right: 22px;
       z-index: 100;
-      background: var(--card-bg);
-      backdrop-filter: blur(10px);
-      padding: 8px 16px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 8px 18px 8px 10px;
       border-radius: 50px;
-      border: 1px solid rgba(183, 110, 121, 0.35);
+      border: 1px solid var(--glass-border);
       display: flex;
       align-items: center;
-      gap: 10px;
-      box-shadow: 0 8px 24px rgba(183, 110, 121, 0.18);
+      gap: 12px;
+      box-shadow: 0 10px 30px rgba(192, 112, 128, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .music-player.playing {
+      box-shadow: 0 0 25px rgba(221, 176, 118, 0.5);
+      border-color: rgba(221, 176, 118, 0.6);
     }
 
     .music-player button {
-      background: var(--rose-gold);
+      background: linear-gradient(135deg, var(--candle-gold), var(--rose-gold));
       color: white;
       border: none;
-      width: 32px;
-      height: 32px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       cursor: pointer;
       font-size: 11px;
       display: flex;
       align-items: center;
       justify-content: center;
+      box-shadow: 0 4px 12px rgba(192, 112, 128, 0.35);
       transition: transform 0.2s ease;
     }
 
-    .music-player button:hover { transform: scale(1.05); }
+    .music-player button:hover { transform: scale(1.08); }
 
     .song-title {
-      font-size: 12px;
+      font-size: 13px;
       font-weight: 600;
       color: var(--text-main);
+      letter-spacing: -0.2px;
     }
 
     .container {
-      max-width: 800px;
+      max-width: 860px;
       margin: 0 auto;
-      padding: 70px 20px 20px;
+      padding: 90px 24px 30px;
       text-align: center;
+      position: relative;
+      z-index: 10;
     }
 
     h1, h2 {
@@ -86,97 +123,136 @@
       font-weight: 600;
     }
 
-    /* Hero */
+    /* Hero Section */
     .hero {
-      padding: 30px 0 10px;
+      padding: 20px 0 15px;
+    }
+
+    .script-accent {
+      font-family: 'Alex Brush', cursive;
+      font-size: 2.2rem;
+      color: var(--candle-gold);
+      display: block;
+      margin-bottom: -10px;
+      letter-spacing: 1px;
     }
 
     .hero-subtitle {
       text-transform: uppercase;
-      letter-spacing: 3px;
-      font-size: 0.8rem;
+      letter-spacing: 4px;
+      font-size: 0.76rem;
       color: var(--rose-gold);
       font-weight: 600;
       margin-bottom: 12px;
     }
 
     .hero-title {
-      font-size: 3.2rem;
-      line-height: 1.15;
+      font-size: clamp(2.6rem, 7vw, 4rem);
+      line-height: 1.12;
       color: var(--text-main);
-      margin-bottom: 16px;
+      margin-bottom: 20px;
+      letter-spacing: -0.5px;
     }
 
     .hero-title span {
-      color: var(--rose-gold);
+      background: linear-gradient(135deg, var(--rose-dark) 20%, var(--rose-gold) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       font-style: italic;
     }
 
     .hero-desc {
       color: var(--text-muted);
-      max-width: 500px;
+      max-width: 520px;
       font-size: 1.05rem;
-      margin: 0 auto 25px;
+      margin: 0 auto;
+      line-height: 1.7;
     }
 
-    /* Counter */
+    /* Milestones Grid */
     .counter-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin: 35px 0 50px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 18px;
+      margin: 45px 0 60px;
     }
 
     .counter-card {
-      background: var(--card-bg);
-      padding: 22px 10px;
-      border-radius: 18px;
-      border: 1px solid rgba(183, 110, 121, 0.2);
-      box-shadow: 0 8px 24px rgba(183, 110, 121, 0.08);
+      background: var(--glass-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 28px 16px;
+      border-radius: 22px;
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--card-shadow);
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    .counter-card:hover {
+      transform: translateY(-5px);
     }
 
     .counter-number {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 2.5rem;
+      font-size: 3rem;
       font-weight: 600;
       color: var(--rose-dark);
       line-height: 1;
     }
 
     .counter-label {
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       color: var(--text-muted);
-      margin-top: 6px;
+      margin-top: 8px;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
+      font-weight: 500;
     }
 
-    /* Photo Scrapbook */
+    /* Scrapbook Gallery with Washi Tape */
     .gallery-grid {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      gap: 24px;
-      margin: 25px 0 60px;
+      gap: 32px;
+      margin: 35px 0 70px;
     }
 
     .polaroid {
-      background: white;
-      padding: 12px 12px 24px 12px;
-      border-radius: 4px;
-      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.09);
-      width: 230px;
-      transition: transform 0.3s ease;
+      background: #FFFFFF;
+      padding: 14px 14px 28px 14px;
+      border-radius: 3px;
+      box-shadow: 0 16px 36px rgba(42, 23, 27, 0.08), 0 2px 6px rgba(0,0,0,0.04);
+      width: 245px;
+      position: relative;
+      transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    /* Washi Tape Strip */
+    .polaroid::before {
+      content: '';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 24px;
+      background: rgba(221, 176, 118, 0.55);
+      border-left: 2px dashed rgba(255,255,255,0.4);
+      border-right: 2px dashed rgba(255,255,255,0.4);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.04);
+      z-index: 5;
     }
 
     .polaroid:hover {
-      transform: scale(1.05) rotate(0deg) !important;
-      z-index: 10;
+      transform: scale(1.06) rotate(0deg) translateY(-8px) !important;
+      box-shadow: 0 25px 45px rgba(183, 110, 121, 0.22);
+      z-index: 15;
     }
 
     .polaroid img {
       width: 100%;
-      height: 250px;
+      height: 265px;
       object-fit: cover;
       border-radius: 2px;
     }
@@ -184,91 +260,118 @@
     .polaroid p {
       font-family: 'Cormorant Garamond', Georgia, serif;
       font-style: italic;
-      margin-top: 12px;
-      font-size: 1.15rem;
+      margin-top: 15px;
+      font-size: 1.22rem;
       color: var(--text-main);
     }
 
-    /* Generator */
+    /* Interactive Affirmation Engine */
     .generator-section {
-      margin: 50px 0;
-      background: var(--card-bg);
-      border-radius: 22px;
-      padding: 35px 22px;
-      border: 1px solid rgba(183, 110, 121, 0.25);
-      box-shadow: 0 12px 35px rgba(183, 110, 121, 0.09);
+      margin: 60px 0;
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 28px;
+      padding: 42px 28px;
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--card-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .generator-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--candle-gold), var(--rose-gold), var(--candle-gold));
     }
 
     .quote-box {
-      min-height: 80px;
+      min-height: 90px;
       display: flex;
       align-items: center;
       justify-content: center;
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 1.35rem;
+      font-size: 1.45rem;
+      font-style: italic;
       color: var(--rose-dark);
-      margin: 18px 0;
-      transition: opacity 0.25s ease;
+      margin: 22px 0;
+      padding: 0 10px;
+      transition: all 0.3s ease;
     }
 
     .btn-magic {
       background: linear-gradient(135deg, var(--candle-gold) 0%, var(--rose-gold) 100%);
       color: white;
       border: none;
-      padding: 12px 28px;
-      font-size: 0.95rem;
+      padding: 14px 34px;
+      font-size: 0.96rem;
       font-weight: 600;
       border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 6px 18px rgba(183, 110, 121, 0.25);
-      transition: transform 0.2s ease;
+      box-shadow: 0 8px 22px rgba(192, 112, 128, 0.32);
+      transition: all 0.25s ease;
     }
 
-    .btn-magic:active { transform: scale(0.98); }
+    .btn-magic:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(192, 112, 128, 0.42);
+    }
+
+    .btn-magic:active { transform: scale(0.97); }
 
     /* Scratch Card */
     .scratch-wrapper {
       position: relative;
       width: 320px;
-      height: 160px;
-      margin: 25px auto;
-      border-radius: 16px;
+      height: 165px;
+      margin: 28px auto;
+      border-radius: 18px;
       overflow: hidden;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 16px 36px rgba(42, 23, 27, 0.12);
       user-select: none;
+      -webkit-user-select: none;
     }
 
     .scratch-secret {
       position: absolute;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: var(--soft-blush);
+      background: linear-gradient(135deg, #FFF4F6, var(--soft-blush));
       border: 2px dashed var(--rose-gold);
-      border-radius: 16px;
+      border-radius: 18px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 12px;
+      padding: 14px;
     }
 
     .scratch-canvas {
       position: absolute;
       top: 0; left: 0;
-      cursor: pointer;
+      cursor: grab;
+      border-radius: 18px;
     }
+
+    .scratch-canvas:active { cursor: grabbing; }
 
     footer {
       color: var(--text-muted);
-      font-size: 0.85rem;
-      margin-top: 55px;
+      font-size: 0.9rem;
+      margin-top: 60px;
+      letter-spacing: 0.5px;
     }
   </style>
 </head>
 <body>
 
-  <!-- Floating YouTube Embedded Player -->
-  <div class="music-player">
+  <div class="aurora-layer"></div>
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- YouTube Audio Controller -->
+  <div class="music-player" id="playerWrap">
     <button id="songBtn" onclick="toggleYTSong()">▶</button>
     <div style="text-align: left;">
       <div class="song-title">Pehli Dafa ♡</div>
@@ -276,7 +379,6 @@
     </div>
   </div>
 
-  <!-- Hidden Background YouTube API Frame -->
   <iframe id="ytPlayer" width="1" height="1" 
     src="https://www.youtube-nocookie.com/embed/SxTYjptEzZs?enablejsapi=1&playsinline=1" 
     frameborder="0" allow="autoplay" style="position: absolute; opacity: 0; pointer-events: none;">
@@ -284,16 +386,17 @@
 
   <div class="container">
     <section class="hero">
+      <span class="script-accent">to my soulmate</span>
       <div class="hero-subtitle">October 12, 2024 • Where It All Began</div>
-      <h1 class="hero-title">Happy Birthday, <span>My Love</span> ♡</h1>
-      <p class="hero-desc">Every single moment since that first day has been my favorite memory. Today is all about celebrating you.</p>
+      <h1 class="hero-title">Happy Birthday, <span>My Favorite Person</span> ♡</h1>
+      <p class="hero-desc">Every moment since the first day has been pure magic. Here’s a little corner of the world built just to celebrate you.</p>
     </section>
 
-    <!-- Milestone Counter (Calculated automatically from Oct 12, 2024) -->
+    <!-- Milestone Counters -->
     <div class="counter-grid">
       <div class="counter-card">
         <div class="counter-number" id="daysCount">--</div>
-        <div class="counter-label">Days Since We Met</div>
+        <div class="counter-label">Days Loving You</div>
       </div>
       <div class="counter-card">
         <div class="counter-number">10,000+</div>
@@ -301,17 +404,17 @@
       </div>
       <div class="counter-card">
         <div class="counter-number">∞</div>
-        <div class="counter-label">Memories Ahead</div>
+        <div class="counter-label">Adventures Ahead</div>
       </div>
     </div>
 
-    <!-- The 3 Photos & Captions -->
+    <!-- Scrapbook Photos -->
     <section>
-      <h2 style="font-size: 2.1rem;">Moments I Cherish</h2>
-      <p style="color: var(--text-muted); font-size: 0.92rem; margin-top: 4px;">A few of our unforgettable chapters together</p>
+      <h2 style="font-size: 2.3rem;">Moments I Cherish</h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 4px;">My three favorite chapters with you</p>
       
       <div class="gallery-grid">
-        <div class="polaroid" style="transform: rotate(-3deg);">
+        <div class="polaroid" style="transform: rotate(-2.5deg);">
           <img src="met.jpg.JPG" alt="The place we met">
           <p>The place we met ♡</p>
         </div>
@@ -319,34 +422,34 @@
           <img src="cafe.jpg.HEIC" alt="Our go to Cafe">
           <p>Our go-to café ☕</p>
         </div>
-        <div class="polaroid" style="transform: rotate(-2deg);">
+        <div class="polaroid" style="transform: rotate(-1.5deg);">
           <img src="pose.jpg.HEIC" alt="Go to pose">
           <p>Our go-to pose ✨</p>
         </div>
       </div>
     </section>
 
-    <!-- Dynamic AI Reason Generator -->
+    <!-- Interactive Generator -->
     <section class="generator-section">
-      <div style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.72rem; color: var(--rose-gold); font-weight: bold;">Daily Affirmation Engine</div>
-      <div class="quote-box" id="quoteBox">"Click below whenever you need a reminder of how special you are..."</div>
-      <button class="btn-magic" onclick="nextNote()">Tell Me Why You Love Me ✨</button>
+      <div style="text-transform: uppercase; letter-spacing: 2.5px; font-size: 0.72rem; color: var(--rose-gold); font-weight: 700;">Daily Affirmation Engine</div>
+      <div class="quote-box" id="quoteBox">"Click below whenever you need a reminder of how deeply you are loved..."</div>
+      <button class="btn-magic" onclick="nextNote(event)">Tell Me Why You Love Me ✨</button>
     </section>
 
-    <!-- Scratch-Off Surprise Card -->
-    <section style="margin: 45px 0;">
-      <h2 style="font-size: 2.1rem;">Your Birthday Treat</h2>
-      <p style="color: var(--text-muted); font-size: 0.92rem; margin-top: 4px;">Scratch with your finger or mouse to unlock your surprise</p>
+    <!-- Scratch Voucher -->
+    <section style="margin: 50px 0;">
+      <h2 style="font-size: 2.3rem;">Your Birthday Surprise</h2>
+      <p style="color: var(--text-muted); font-size: 0.95rem; margin-top: 4px;">Scratch with your finger to reveal your voucher</p>
 
       <div class="scratch-wrapper">
         <div class="scratch-secret">
-          <span style="font-size: 10px; color: var(--rose-gold); font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;">Official Birthday Voucher</span>
-          <span style="font-size: 1.3rem; font-weight: bold; font-family:'Cormorant Garamond', Georgia, serif; color: var(--text-main); margin-top: 6px;">
+          <span style="font-size: 10px; color: var(--rose-gold); font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">Official Birthday Voucher</span>
+          <span style="font-size: 1.35rem; font-weight: bold; font-family:'Cormorant Garamond', Georgia, serif; color: var(--text-main); margin-top: 6px;">
             Chole bhature at delhi wale ❤️
           </span>
-          <span style="font-size: 10px; color: var(--text-muted); margin-top: 6px;">Extra bhature on me • Redeemable anytime</span>
+          <span style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">Extra bhature on me • Valid forever</span>
         </div>
-        <canvas id="scratchCanvas" class="scratch-canvas" width="320" height="160"></canvas>
+        <canvas id="scratchCanvas" class="scratch-canvas" width="320" height="165"></canvas>
       </div>
     </section>
 
@@ -356,58 +459,84 @@
   </div>
 
   <script>
-    // YouTube Background Song Toggle
+    // 1. YouTube Audio Player with Ambient Visualizer glow
     let isPlaying = false;
     function toggleYTSong() {
       const iframe = document.getElementById('ytPlayer');
       const btn = document.getElementById('songBtn');
+      const wrap = document.getElementById('playerWrap');
       
       if (!isPlaying) {
         iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
         btn.innerText = '❚❚';
+        wrap.classList.add('playing');
         isPlaying = true;
       } else {
         iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
         btn.innerText = '▶';
+        wrap.classList.remove('playing');
         isPlaying = false;
       }
     }
 
-    // Days Counter: 12 October 2024
+    // 2. Days Counter (Oct 12, 2024)
     const firstDate = new Date(2024, 9, 12);
     const currentDate = new Date();
     const elapsedDays = Math.floor((currentDate - firstDate) / (1000 * 60 * 60 * 24));
     document.getElementById('daysCount').innerText = elapsedDays;
 
-    // Compliment Generator
+    // 3. Compliment Generator with Sparkle Bursts
     const notes = [
-      "The exact moment on October 12 when I knew you were going to be special to me.",
-      "The sound of your laugh when we are sitting at our favorite cafe talking about everything and nothing.",
-      "How comfortable and completely happy I feel every time we pose for a picture together.",
-      "The way you make the simplest ordinary days feel like memories I want to keep forever.",
-      "Your genuine warmth, your kind heart, and the way you make me smile without even trying."
+      "The exact moment on October 12 when I looked at you and knew you were someone special.",
+      "The sound of your laugh when we sit at our favorite cafe talking about everything and nothing.",
+      "How comforting and safe it feels just leaning against you for a picture.",
+      "The effortless way you make completely normal days turn into lifelong memories.",
+      "Your genuine warmth, soft heart, and how effortlessly you make me smile every single day."
     ];
 
-    function nextNote() {
+    function nextNote(e) {
       const q = document.getElementById('quoteBox');
+      
+      // Micro-confetti burst on button click
+      if (window.confetti) {
+        confetti({
+          particleCount: 25,
+          spread: 50,
+          origin: { x: e.clientX / window.innerWidth, y: e.clientY / window.innerHeight },
+          colors: ['#DDB076', '#C07080', '#FFF']
+        });
+      }
+
       q.style.opacity = '0';
+      q.style.transform = 'translateY(6px)';
       setTimeout(() => {
         q.innerText = `"${notes[Math.floor(Math.random() * notes.length)]}"`;
         q.style.opacity = '1';
-      }, 200);
+        q.style.transform = 'translateY(0)';
+      }, 250);
     }
 
-    // Scratch Card
+    // 4. Scratch-Off Canvas with Big Confetti Reveal
     const canvas = document.getElementById('scratchCanvas');
     const ctx = canvas.getContext('2d');
-    ctx.fillStyle = '#C99E9B';
-    ctx.fillRect(0, 0, 320, 160);
+    
+    // Rose-Gold Brushed Foil Effect
+    const grad = ctx.createLinearGradient(0, 0, 320, 165);
+    grad.addColorStop(0, '#CBB0B4');
+    grad.addColorStop(0.5, '#E2C8CC');
+    grad.addColorStop(1, '#C2A3A8');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, 320, 165);
+
     ctx.fillStyle = '#FFFFFF';
-    ctx.font = '500 13px "Plus Jakarta Sans", sans-serif';
+    ctx.font = '600 13px "Plus Jakarta Sans", sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('Scratch here with your finger ✨', 160, 85);
+    ctx.fillText('Scratch here with your finger ✨', 160, 88);
 
     let rubbing = false;
+    let scratchedAmount = 0;
+    let hasCelebrated = false;
+
     function rub(e) {
       if (!rubbing) return;
       const rect = canvas.getBoundingClientRect();
@@ -418,8 +547,21 @@
 
       ctx.globalCompositeOperation = 'destination-out';
       ctx.beginPath();
-      ctx.arc(x, y, 18, 0, Math.PI * 2);
+      ctx.arc(x, y, 22, 0, Math.PI * 2);
       ctx.fill();
+
+      scratchedAmount++;
+      if (scratchedAmount > 45 && !hasCelebrated) {
+        hasCelebrated = true;
+        if (window.confetti) {
+          confetti({
+            particleCount: 80,
+            spread: 90,
+            origin: { y: 0.75 },
+            colors: ['#C07080', '#DDB076', '#FFCCD5']
+          });
+        }
+      }
     }
 
     canvas.addEventListener('mousedown', () => rubbing = true);
@@ -428,7 +570,57 @@
     canvas.addEventListener('touchstart', () => rubbing = true);
     canvas.addEventListener('touchend', () => rubbing = false);
     canvas.addEventListener('touchmove', rub);
+
+    // 5. Floating Ambient Dust & Petals Canvas
+    const ambCanvas = document.getElementById('ambient-canvas');
+    const ambCtx = ambCanvas.getContext('2d');
+    let particles = [];
+
+    function resizeAmb() {
+      ambCanvas.width = window.innerWidth;
+      ambCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeAmb);
+    resizeAmb();
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+      reset() {
+        this.x = Math.random() * ambCanvas.width;
+        this.y = ambCanvas.height + Math.random() * 20;
+        this.size = Math.random() * 3.5 + 1.5;
+        this.speedY = Math.random() * 0.7 + 0.3;
+        this.speedX = (Math.random() - 0.5) * 0.4;
+        this.opacity = Math.random() * 0.5 + 0.2;
+      }
+      update() {
+        this.y -= this.speedY;
+        this.x += this.speedX;
+        if (this.y < -10) this.reset();
+      }
+      draw() {
+        ambCtx.fillStyle = `rgba(221, 176, 118, ${this.opacity})`;
+        ambCtx.beginPath();
+        ambCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ambCtx.fill();
+      }
+    }
+
+    for (let i = 0; i < 35; i++) {
+      particles.push(new Particle());
+    }
+
+    function animateAmb() {
+      ambCtx.clearRect(0, 0, ambCanvas.width, ambCanvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateAmb);
+    }
+    animateAmb();
   </script>
 </body>
 </html>
-
